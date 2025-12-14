@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>القرآن الكريم</title>
+<link rel="icon" href="assets/img/heading.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel=stylesheet>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
+<div class="offcanvas-header">
+<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+<h4 style="text-align: center;">سور القرآن الكريم</h4>
+<div>
+<select id="chooseMoshaf" class="form-select" aria-label="Default select example">
+</select>
+<div class="row"  id="chooseSurah">
+</div>
+</div>
+</div>
+</div>
+<section class="hero">
+<div class="hero-content">
+<img src="assets/img/heading.jpg" class="img-hero img-fluid">
+<h1 class="heading">القرآن الكريم</h1>
+<p class="subtitle">اختر القارئ المفضل لك</p>
+<div class="container">
+<div class="row"  id="chooseReciters">
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="containerSurah">
+<img src="assets/img/audio.gif"  class="img-fluid surahImg">
+<div>
+<button type="button" class="btn-close closeContainer" onclick="closeContainer()"></button>
+<audio controls autoplay  id="audioPlay" class="surah">
+<source type="audio/ogg" src="">
+</audio>
+</div>
+</div>
+
+<script src="assets/js/mushaf.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
