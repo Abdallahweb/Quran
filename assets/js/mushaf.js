@@ -15,16 +15,30 @@ getReciters();async function getMoshaf(reciter){const res=await fetch(`${apiUrl}
        data-server = "${moshaf.server}"
         data-surahlist = "${moshaf.surah_list}"
        >${moshaf.name}</option>`});chooseMoshaf.addEventListener('change',e=>{const selectedMoshaf=chooseMoshaf.options[chooseMoshaf.selectedIndex];const surahServer=selectedMoshaf.dataset.server;const surahList=selectedMoshaf.dataset.surahlist;getSurah(surahServer,surahList)})}
-async function getSurah(surahServer,surahList){const res=await fetch(`https://mp3quran.net/api/v3/suwar`);const data=await res.json();const surahNames=data.suwar;surahList=surahList.split(',');surahList.forEach(surah=>{const padSurah=surah.padStart(3,'0');surahNames.forEach(surahName=>{if(surahName.id==surah){chooseSurah.innerHTML+=`
+async function getSurah(surahServer,surahList){const res=await fetch(`https://mp3quran.net/api/v3/suwar`);const data=await res.json();const surahNames=data.suwar;surahList=surahList.split(',');surahList.forEach(surah=>{const padSurah=surah.padStart(3,'0');surahNames.forEach(surahName=>{if(surahName.id==surah&&surahName.makkia==0){chooseSurah.innerHTML+=`
         <div class="col-lg-6" >
 
 
-   <div class="reciters" onclick="playSurah(this)"  data-surah-id="${surahServer}${padSurah}.mp3">
+   <div class="surah" onclick="playSurah(this)"  data-surah-id="${surahServer}${padSurah}.mp3">
 
-${surahName.name}
-<i class="fa fa-play"></i>
+   <p>${surahName.name} | مدنيه </p>
+</div> 
 
-</div>  </div>
+
+</div>
+       
+       `}else if(surahName.id==surah&&surahName.makkia==1){chooseSurah.innerHTML+=`
+        <div class="col-lg-6" >
+
+
+   <div class="surah" onclick="playSurah(this)"  data-surah-id="${surahServer}${padSurah}.mp3">
+
+   <p>${surahName.name} | مكيه </p>
+
+</div> 
+
+
+</div>
        
        `}})})}
 function playSurah(surahMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");var audioPlay=document.getElementById("audioPlay");audioPlay.src=surahMp3.getAttribute("data-surah-id");containerSurah.style.display="block";modelBtn.click();audioPlay.play()}
