@@ -1,1 +1,45 @@
-const apiUrl="https://mp3quran.net/api/v3",endPoint="reciters",language="ar",chooseReciters=document.getElementById("chooseReciters"),chooseMoshaf=document.getElementById("chooseMoshaf"),chooseSurah=document.getElementById("chooseSurah");async function getReciters(){const a=await fetch(`${apiUrl}/${endPoint}?language=ar`);(await a.json()).reciters.forEach((a=>{chooseReciters.innerHTML+=`\n           \n            <div class="col-lg-4">\n\n            <a data-bs-toggle="offcanvas" class="links" href="#offcanvasExample">\n\n   <div class="reciters" onclick="getMoshaf(this)"  data-reciter-id="${a.id}">\n\n${a.name}  \n<i class="fa fa-microphone"></i>\n\n</div>  </a>  </div>`}))}async function getMoshaf(a){const e=await fetch(`${apiUrl}/${endPoint}?language=ar&reciter=${a.getAttribute("data-reciter-id")}`),n=(await e.json()).reciters[0].moshaf;chooseSurah.innerHTML="",chooseMoshaf.innerHTML='<option value="">اختر القراءة</option>',n.forEach((a=>{chooseMoshaf.innerHTML+=`<option class="option_mushaf" \n       value="${a.id}"\n       data-server = "${a.server}"\n        data-surahlist = "${a.surah_list}"\n       >${a.name}</option>`})),chooseMoshaf.addEventListener("change",(a=>{const e=chooseMoshaf.options[chooseMoshaf.selectedIndex];getSurah(e.dataset.server,e.dataset.surahlist)}))}async function getSurah(a,e){const n=await fetch("https://mp3quran.net/api/v3/suwar"),t=(await n.json()).suwar;(e=e.split(",")).forEach((e=>{const n=e.padStart(3,"0");t.forEach((t=>{t.id==e&&0==t.makkia?chooseSurah.innerHTML+=`\n        <div class="col-lg-6" >\n\n\n   <div class="surah" onclick="playSurah(this)"  data-surah-id="${a}${n}.mp3">\n\n   <p>${t.name} | مدنيه </p>\n</div> \n\n\n</div>\n       \n       `:t.id==e&&1==t.makkia&&(chooseSurah.innerHTML+=`\n        <div class="col-lg-6" >\n\n\n   <div class="surah" onclick="playSurah(this)"  data-surah-id="${a}${n}.mp3">\n\n   <p>${t.name} | مكيه </p>\n\n</div> \n\n\n</div>\n       \n       `)}))}))}function playSurah(a){var e=document.querySelector(".containerSurah");const n=document.getElementById("modelBtn");var t=document.getElementById("audioPlay");t.src=a.getAttribute("data-surah-id"),e.style.display="block",n.click(),t.play()}function closeContainer(){var a=document.querySelector(".containerSurah"),e=document.getElementById("audioPlay");a.style.display="none",e.pause()}getReciters();
+const apiUrl='https://mp3quran.net/api/v3';const endPoint='reciters';const language='ar';const chooseReciters=document.getElementById("chooseReciters");const chooseMoshaf=document.getElementById("chooseMoshaf");const chooseSurah=document.getElementById("chooseSurah");async function getReciters(){const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{chooseReciters.innerHTML+=`
+           
+            <div class="col-lg-4">
+
+            <a data-bs-toggle="offcanvas" class="links" href="#offcanvasExample">
+
+   <div class="reciters" onclick="getMoshaf(this)"  data-reciter-id="${reciter.id}">
+
+${reciter.name}  
+<i class="fa fa-microphone"></i>
+
+</div>  </a>  </div>`})}
+getReciters();async function getMoshaf(reciter){const res=await fetch(`${apiUrl}/${endPoint}?language=${language}&reciter=${reciter.getAttribute("data-reciter-id")}`);const data=await res.json();const moshafs=data.reciters[0].moshaf;chooseSurah.innerHTML="";chooseMoshaf.innerHTML=`<option value="">اختر القراءة</option>`;moshafs.forEach(moshaf=>{chooseMoshaf.innerHTML+=`<option class="option_mushaf" 
+       value="${moshaf.id}"
+       data-server = "${moshaf.server}"
+        data-surahlist = "${moshaf.surah_list}"
+       >${moshaf.name}</option>`});chooseMoshaf.addEventListener('change',e=>{chooseSurah.innerHTML="";const selectedMoshaf=chooseMoshaf.options[chooseMoshaf.selectedIndex];const surahServer=selectedMoshaf.dataset.server;const surahList=selectedMoshaf.dataset.surahlist;getSurah(surahServer,surahList)})}
+async function getSurah(surahServer,surahList){const res=await fetch(`https://mp3quran.net/api/v3/suwar`);const data=await res.json();const surahNames=data.suwar;surahList=surahList.split(',');surahList.forEach(surah=>{const padSurah=surah.padStart(3,'0');surahNames.forEach(surahName=>{if(surahName.id==surah&&surahName.makkia==0){chooseSurah.innerHTML+=`
+        <div class="col-lg-6" >
+
+
+   <div class="surah" onclick="playSurah(this)"  data-surah-id="${surahServer}${padSurah}.mp3">
+
+   <p>${surahName.name} | مدنيه </p>
+</div> 
+
+
+</div>
+       
+       `}else if(surahName.id==surah&&surahName.makkia==1){chooseSurah.innerHTML+=`
+        <div class="col-lg-6" >
+
+
+   <div class="surah" onclick="playSurah(this)"  data-surah-id="${surahServer}${padSurah}.mp3">
+
+   <p>${surahName.name} | مكيه </p>
+
+</div> 
+
+
+</div>
+       
+       `}})})}
+function playSurah(surahMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");var audioPlay=document.getElementById("audioPlay");audioPlay.src=surahMp3.getAttribute("data-surah-id");containerSurah.style.display="block";modelBtn.click();audioPlay.play()}
+function closeContainer(){var containerSurah=document.querySelector(".containerSurah");var audioPlay=document.getElementById("audioPlay");containerSurah.style.display="none";audioPlay.pause()}
