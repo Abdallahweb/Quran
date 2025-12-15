@@ -15,7 +15,7 @@ async function getMoshaf(reciter){const res=await fetch(`${apiUrl}/${endPoint}?l
        data-server = "${moshaf.server}"
         data-surahlist = "${moshaf.surah_list}"
        >${moshaf.name}</option>`});chooseMoshaf.addEventListener('change',e=>{chooseSurah.innerHTML="";const selectedMoshaf=chooseMoshaf.options[chooseMoshaf.selectedIndex];const surahServer=selectedMoshaf.dataset.server;const surahList=selectedMoshaf.dataset.surahlist;getSurah(surahServer,surahList)})}
-async function getSurah(surahServer,surahList){const res=await fetch(`https://mp3quran.net/api/v3/suwar`);const data=await res.json();const surahNames=data.suwar;var Place="";surahList=surahList.split(',');surahList.forEach(surah=>{const padSurah=surah.padStart(3,'0');surahNames.forEach(surahName=>{if(surahName.id==surah){if(surahName.makkia==0){Place="مدنيه"}else{Place="مكيه"}
+async function getSurah(surahServer,surahList){const res=await fetch(`${apiUrl}/suwar`);const data=await res.json();const surahNames=data.suwar;var Place="";surahList=surahList.split(',');surahList.forEach(surah=>{const padSurah=surah.padStart(3,'0');surahNames.forEach(surahName=>{if(surahName.id==surah){if(surahName.makkia==0){Place="مدنيه"}else{Place="مكيه"}
 chooseSurah.innerHTML+=`
         <div class="col-lg-6" >
 
@@ -33,7 +33,7 @@ function playSurah(surahMp3){var containerSurah=document.querySelector(".contain
 function playTafsir(tafsirMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");videoPlay.style.display="none";audioPlay.style.display="inline-block";surahImg.style.display="inline-block";audioPlay.src=tafsirMp3.getAttribute("data-tafsir-id");containerSurah.style.display="block";audioPlay.play()}
 function playTv(tv){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");audioPlay.style.display="none";surahImg.style.display="none";videoPlay.style.display="block";videoPlay.src=tv.getAttribute("data-tv-id");containerSurah.style.display="block";videoPlay.play()}
 function closeContainer(){var containerSurah=document.querySelector(".containerSurah");containerSurah.style.display="none";audioPlay.pause();videoPlay.pause()}
-async function getTafsir(){AllData.innerHTML="";const response=await fetch(`https://www.mp3quran.net/api/v3/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
+async function getTafsir(){AllData.innerHTML="";const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
            
             <div class="col-lg-4">
 
@@ -44,7 +44,18 @@ ${soars.name}
 <i class="fa fa-headphones"></i>
 
 </div>   </div>`})}
-async function getLive(){AllData.innerHTML="";const response=await fetch(`https://www.mp3quran.net/api/v3/live-tv`);const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
+async function getRadio(){AllData.innerHTML="";const response=await fetch(`${apiUrl}/radios?language=${language}`);const data=await response.json();const radios=data.radios;radios.forEach(radio=>{AllData.innerHTML+=`
+           
+            <div class="col-lg-4">
+
+
+   <div class="reciters" onclick="playTafsir(this)"  data-tafsir-id="${radio.url}">
+
+${radio.name}  
+<i class="material-icons" style="font-size:24px">radio</i>
+
+</div>   </div>`})}
+async function getLive(){AllData.innerHTML="";const response=await fetch(`${apiUrl}/live-tv`);const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
            
             <div class="col-lg-6">
 
