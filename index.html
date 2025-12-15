@@ -32,9 +32,11 @@
 <img src="assets/img/heading.jpg" class="img-hero img-fluid">
 <h1 class="heading">القرآن الكريم</h1>
 <p class="subtitle"> ﴾قال تعالى: ﴿إِنّا نَحنُ نَزَّلنَا الذِّكرَ وَإِنّا لَهُ لَحٰفِظونَ </p>
-<button  class="chooseReciter" onclick="getReciters()">استمع للقارئ المفضل لك<i class="fa fa-microphone"></i></button>
 
-<button class="chooseTafsir" onclick="getTafsir()">استمع لتفسير القرآن الكريم<i class="fa fa-book"></i></button>
+
+<a  href="#AllData"><button class="chooseTafsir" onclick="getLive()">إذاعة القرآن الكريم<i class="fa fa-tv"></i></button></a>
+<a  href="#AllData"><button class="chooseTafsir" onclick="getTafsir()">استمع لتفسير القرآن الكريم<i class="fa fa-book"></i></button></a>
+<a  href="#AllData"><button  class="chooseReciter" onclick="getReciters()">استمع للقارئ المفضل لك<i class="fa fa-microphone"></i></button></a>
 
 <div class="container">
 <div class="row"  id="AllData">
@@ -44,27 +46,34 @@
 </div>
 </section>
 <div class="containerSurah">
-<img src="assets/img/audio.gif"  class="img-fluid surahImg">
-<div>
-<button type="button" class="btn-close closeContainer" onclick="closeContainer()"></button>
+
+<img src="assets/img/audio.gif" class="img-fluid surahImg" id="surahImg">
+
+<br>
 <audio controls autoplay  id="audioPlay" class="surah">
 <source type="audio/ogg" src="">
 </audio>
-</div>
+
+<video  controls id="videoPlay">
+<source src="" type="video/mp4">
+</video>
+
+<button type="button" class="btn-close closeContainer" onclick="closeContainer()"></button>
+
 </div>
 
-  <script src=http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js></script>
-    <script>
-        document.onkeydown = function(e) {
-            return !e.ctrlKey || 67 !== e.keyCode && 86 !== e.keyCode && 85 !== e.keyCode && 117 !== e.keyCode
-        }, $(document).keypress("u", function(e) {
-            return !e.ctrlKey
-        }), document.addEventListener("contextmenu", function(e) {
-            e.preventDefault()
-        }, !1), $(document).keydown(function(e) {
-            return 123 != e.keyCode && ((!e.ctrlKey || !e.shiftKey || 73 != e.keyCode) && void 0)
-        })
-    </script>
+<script src=http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js></script>
+<script>
+document.onkeydown = function(e) {
+return !e.ctrlKey || 67 !== e.keyCode && 86 !== e.keyCode && 85 !== e.keyCode && 117 !== e.keyCode
+}, $(document).keypress("u", function(e) {
+return !e.ctrlKey
+}), document.addEventListener("contextmenu", function(e) {
+e.preventDefault()
+}, !1), $(document).keydown(function(e) {
+return 123 != e.keyCode && ((!e.ctrlKey || !e.shiftKey || 73 != e.keyCode) && void 0)
+})
+</script>
 <script src="assets/js/mushaf.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
