@@ -1,4 +1,4 @@
-const apiUrl='https://mp3quran.net/api/v3';const endPoint='reciters';const language='ar';const AllData=document.getElementById("AllData");const chooseMoshaf=document.getElementById("chooseMoshaf");const chooseSurah=document.getElementById("chooseSurah");const chooseTafsir=document.getElementById("chooseTafsir");async function getReciters(){AllData.innerHTML="";const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{AllData.innerHTML+=`
+const apiUrl='https://mp3quran.net/api/v3';const endPoint='reciters';const language='ar';const AllData=document.getElementById("AllData");const chooseMoshaf=document.getElementById("chooseMoshaf");const chooseSurah=document.getElementById("chooseSurah");const chooseTafsir=document.getElementById("chooseTafsir");const audioPlay=document.getElementById("audioPlay");const videoPlay=document.getElementById("videoPlay");const surahImg=document.getElementById("surahImg");async function getReciters(){AllData.innerHTML="";const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{AllData.innerHTML+=`
            
             <div class="col-lg-4">
 
@@ -29,8 +29,9 @@ chooseSurah.innerHTML+=`
 </div>
        
        `}})})}
-function playSurah(surahMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");var audioPlay=document.getElementById("audioPlay");audioPlay.src=surahMp3.getAttribute("data-surah-id");containerSurah.style.display="block";modelBtn.click();audioPlay.play()}
-function playTafsir(tafsirMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");var audioPlay=document.getElementById("audioPlay");audioPlay.src=tafsirMp3.getAttribute("data-tafsir-id");containerSurah.style.display="block";audioPlay.play()}
+function playSurah(surahMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");videoPlay.style.display="none";audioPlay.style.display="inline-block";surahImg.style.display="inline-block";audioPlay.src=surahMp3.getAttribute("data-surah-id");containerSurah.style.display="block";modelBtn.click();audioPlay.play()}
+function playTafsir(tafsirMp3){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");videoPlay.style.display="none";audioPlay.style.display="inline-block";surahImg.style.display="inline-block";audioPlay.src=tafsirMp3.getAttribute("data-tafsir-id");containerSurah.style.display="block";audioPlay.play()}
+function playTv(tv){var containerSurah=document.querySelector(".containerSurah");const modelBtn=document.getElementById("modelBtn");audioPlay.style.display="none";surahImg.style.display="none";videoPlay.style.display="block";videoPlay.src=tv.getAttribute("data-tv-id");containerSurah.style.display="block";videoPlay.play()}
 function closeContainer(){var containerSurah=document.querySelector(".containerSurah");var audioPlay=document.getElementById("audioPlay");containerSurah.style.display="none";audioPlay.pause()}
 async function getTafsir(){AllData.innerHTML="";const response=await fetch(`https://www.mp3quran.net/api/v3/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
            
@@ -40,6 +41,17 @@ async function getTafsir(){AllData.innerHTML="";const response=await fetch(`http
    <div class="reciters" onclick="playTafsir(this)"  data-tafsir-id="${soars.url}">
 
 ${soars.name}  
+<i class="fa fa-book"></i>
+
+</div>   </div>`})}
+async function getLive(){AllData.innerHTML="";const response=await fetch(`https://www.mp3quran.net/api/v3/live-tv`);const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
+           
+            <div class="col-lg-6">
+
+
+   <div class="reciters" onclick="playTv(this)"  data-tv-id="${tv.url}">
+
+${tv.name}  
 <i class="fa fa-book"></i>
 
 </div>   </div>`})}
