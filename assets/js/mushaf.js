@@ -8,8 +8,8 @@ async function getReciters(){AllData.innerHTML="";try{const res=await fetch(`${a
                 <div class="col-lg-4 mt-2 mb-2">
                     <a data-bs-toggle="offcanvas" class="links" href="#offcanvasExample">
                         <div class="reciters" onclick="getMoshaf(this)" data-reciter-id="${reciter.id}">
-                            ${reciter.name} 
-                            <i class="fa fa-microphone"></i>
+                                                    <i class="fa fa-microphone"></i>  
+                        ${reciter.name} 
                         </div> 
                     </a> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching reciters:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة القراء.</p>`}}
@@ -30,22 +30,22 @@ async function getSurah(surahServer,surahList){try{const res=await fetch(`${apiU
 async function getTafsir(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playTafsir(this)" data-tafsir-id="${soars.url}">
-                        ${soars.name} 
-                        <i class="fa fa-headphones"></i>
+                                            <i class="fa fa-headphones"></i>   
+                    ${soars.name} 
                     </div> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching tafsir:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة مواد التفسير.</p>`}}
 async function getRadio(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/radios?language=${language}`);const data=await response.json();const radios=data.radios;radios.forEach(radio=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playRadio(this)" data-radio-id="${radio.url}">
-                        ${radio.name} 
-                        <i class="material-icons" style="font-size:24px">radio</i>
+                                            <i class="material-icons" style="font-size:24px">radio</i>  
+                    ${radio.name} 
                     </div> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching radios:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة محطات الراديو.</p>`}}
 async function getLive(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/live-tv`);const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
                 <div class="col-lg-6 mt-2 mb-2">
                     <div class="reciters" onclick="playTv(this)" data-tv-id="${tv.url}">
-                        ${tv.name} 
-                        <i class="fa fa-tv"></i>
+                                          <i class="fa fa-tv"></i>
+                    ${tv.name} 
                     </div> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching live tv:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة البث المباشر.</p>`}}
 function playSurah(surahMp3Element){const surahUrl=surahMp3Element.getAttribute("data-surah-id");playAudio(surahUrl)}
