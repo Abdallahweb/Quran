@@ -24,13 +24,13 @@ async function getMoshaf(reciterElement){const reciterId=reciterElement.getAttri
 async function getSurah(surahServer,surahList){try{const res=await fetch(`${apiUrl}/suwar`);const data=await res.json();const surahNames=data.suwar;let Place="";const availableSurahs=surahList.split(',');chooseSurah.innerHTML="";availableSurahs.forEach(surahId=>{const surahNameObj=surahNames.find(s=>s.id==surahId);if(surahNameObj){const padSurah=surahId.padStart(3,'0');Place=(surahNameObj.makkia==0)?"مدنيه":"مكيه";chooseSurah.innerHTML+=`
                     <div class="col-lg-6 mt-4">
                         <div class="surah" onclick="playSurah(this)" data-surah-id="${surahServer}${padSurah}.mp3">
-                            <p>${surahNameObj.name} | ${Place}</p>
+                            <p> <i class="fa fa-play-circle"></i>${surahNameObj.name} | ${Place}</p>
                         </div> 
                     </div>`}})}catch(error){console.error("Error fetching surah list:",error)}}
 async function getTafsir(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playTafsir(this)" data-tafsir-id="${soars.url}">
-                                            <i class="fa fa-headphones"></i>   
+                                           <i class="fa fa-play-circle"></i>   
                     ${soars.name} 
                     </div> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching tafsir:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة مواد التفسير.</p>`}}
