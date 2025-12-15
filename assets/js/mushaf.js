@@ -26,7 +26,7 @@ async function getSurah(surahServer,surahList){try{const res=await fetch(`${apiU
                         <div class="surah" onclick="playSurah(this)" data-surah-id="${surahServer}${padSurah}.mp3">
                             <p>${surahNameObj.name} | ${Place}</p>
                         </div> 
-                    </div>`}});scrollFunc()}catch(error){console.error("Error fetching surah list:",error)}}
+                    </div>`}})}catch(error){console.error("Error fetching surah list:",error)}}
 async function getTafsir(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playTafsir(this)" data-tafsir-id="${soars.url}">
