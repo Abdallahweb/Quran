@@ -22,7 +22,7 @@ async function getMoshaf(reciterElement){const reciterId=reciterElement.getAttri
                     ${moshaf.name}
                 </option>`});chooseMoshaf.onchange=()=>{chooseSurah.innerHTML="";const selectedMoshaf=chooseMoshaf.options[chooseMoshaf.selectedIndex];const surahServer=selectedMoshaf.dataset.server;const surahList=selectedMoshaf.dataset.surahlist;if(surahServer&&surahList){getSurah(surahServer,surahList)}}}catch(error){console.error("Error fetching moshafs:",error)}}
 async function getSurah(surahServer,surahList){try{const res=await fetch(`${apiUrl}/suwar`);const data=await res.json();const surahNames=data.suwar;let Place="";const availableSurahs=surahList.split(',');chooseSurah.innerHTML="";availableSurahs.forEach(surahId=>{const surahNameObj=surahNames.find(s=>s.id==surahId);if(surahNameObj){const padSurah=surahId.padStart(3,'0');Place=(surahNameObj.makkia==0)?"مدنيه":"مكيه";chooseSurah.innerHTML+=`
-                    <div class="col-lg-6 mt-2">
+                    <div class="col-lg-6 mt-3">
                         <div class="surah" onclick="playSurah(this)" data-surah-id="${surahServer}${padSurah}.mp3">
                             <p> <i class="fa fa-play-circle"></i>${surahNameObj.name} | ${Place}</p>
                         </div> 
