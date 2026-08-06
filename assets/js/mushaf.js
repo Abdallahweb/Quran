@@ -2,7 +2,7 @@ const apiUrl='https://mp3quran.net/api/v3';const endPoint='reciters';const langu
 function closeContainer(){containerSurah.style.display="none";audioPlay.pause();videoPlay.pause()}
 function playAudio(url){videoPlay.style.display="none";audioPlay.style.display="inline-block";surahImg.style.display="inline-block";audioPlay.src=url;containerSurah.style.display="block";if(modelBtn){modelBtn.click()}
 audioPlay.play()}
-function playVideo(url){audioPlay.style.display="none";surahImg.style.display="none";videoPlay.style.display="block";videoPlay.src=url;containerSurah.style.display="block";if(modelBtn){modelBtn.click()}
+function playVideo(url){document.querySelector(".audio-box").style.display="none";audioPlay.style.display="none";surahImg.style.display="none";videoPlay.style.display="block";videoPlay.src=url;containerSurah.style.display="block";if(modelBtn){modelBtn.click()}
 videoPlay.play()}
 async function getReciters(){AllData.innerHTML="";try{const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
@@ -40,14 +40,20 @@ async function getRadio(){AllData.innerHTML="";try{const response=await fetch(`$
                                             <i class="material-icons" style="font-size:24px">radio</i>  
                     ${radio.name} 
                     </div> 
-                </div>`});scrollFunc()}catch(error){console.error("Error fetching radios:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة محطات الراديو.</p>`}}
-async function getLive(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/live-tv`);const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
+                </div>`});scrollFunc()}catch(error){console.error("Error fetching radios:",error);
+                    
+                    AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة محطات الراديو.</p>`}}
+async function getLive(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/live-tv`);
+
+const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
                 <div class="col-lg-6 mt-2 mb-2">
                     <div class="reciters" onclick="playTv(this)" data-tv-id="${tv.url}">
                                           <i class="fa fa-tv"></i>
                     ${tv.name} 
                     </div> 
-                </div>`});scrollFunc()}catch(error){console.error("Error fetching live tv:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة البث المباشر.</p>`}}
+                </div>
+              
+                ` });scrollFunc()}catch(error){console.error("Error fetching live tv:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة البث المباشر.</p>`}}
 function playSurah(surahMp3Element){const surahUrl=surahMp3Element.getAttribute("data-surah-id");playAudio(surahUrl)}
 function playTafsir(tafsirMp3Element){const tafsirUrl=tafsirMp3Element.getAttribute("data-tafsir-id");playAudio(tafsirUrl)}
 function playRadio(radioElement){const radioUrl=radioElement.getAttribute("data-radio-id");playAudio(radioUrl)}
