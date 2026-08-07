@@ -4,7 +4,7 @@ function playAudio(url){videoPlay.style.display="none";audioPlay.style.display="
 audioPlay.play()}
 function playVideo(url){audioPlay.style.display="none";surahImg.style.display="none";videoPlay.style.display="block";videoPlay.src=url;containerSurah.style.display="block";if(modelBtn){modelBtn.click()}
 videoPlay.play()}
-async function getReciters(){AllData.innerHTML="";try{const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{AllData.innerHTML+=`
+async function getReciters(){document.querySelector(".audio-box").style.opacity=1;AllData.innerHTML="";try{const res=await fetch(`${apiUrl}/${endPoint}?language=${language}`);const data=await res.json();data.reciters.forEach(reciter=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <a data-bs-toggle="offcanvas" class="links" href="#offcanvasExample">
                         <div class="reciters" onclick="getMoshaf(this)" data-reciter-id="${reciter.id}">
@@ -27,14 +27,14 @@ async function getSurah(surahServer,surahList){try{const res=await fetch(`${apiU
                             <p> <i class="fa fa-play-circle"></i>${surahNameObj.name} | ${Place}</p>
                         </div> 
                     </div>`}})}catch(error){console.error("Error fetching surah list:",error)}}
-async function getTafsir(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
+async function getTafsir(){document.querySelector(".audio-box").style.opacity=1;AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/tafsir`);const data=await response.json();const soar=data.tafasir.soar;soar.forEach(soars=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playTafsir(this)" data-tafsir-id="${soars.url}">
                                            <i class="fa fa-play-circle"></i>   
                     ${soars.name} 
                     </div> 
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching tafsir:",error);AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة مواد التفسير.</p>`}}
-async function getRadio(){AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/radios?language=${language}`);const data=await response.json();const radios=data.radios;radios.forEach(radio=>{AllData.innerHTML+=`
+async function getRadio(){document.querySelector(".audio-box").style.opacity=1;AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/radios?language=${language}`);const data=await response.json();const radios=data.radios;radios.forEach(radio=>{AllData.innerHTML+=`
                 <div class="col-lg-4 mt-2 mb-2">
                     <div class="reciters" onclick="playRadio(this)" data-radio-id="${radio.url}">
                                             <i class="material-icons" style="font-size:24px">radio</i>  
@@ -43,7 +43,7 @@ async function getRadio(){AllData.innerHTML="";try{const response=await fetch(`$
                 </div>`});scrollFunc()}catch(error){console.error("Error fetching radios:",error);
                     
                     AllData.innerHTML=`<p class="alert alert-danger">حدث خطأ أثناء جلب قائمة محطات الراديو.</p>`}}
-async function getLive(){document.querySelector(".audio-box").style.display="none"; AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/live-tv`);
+async function getLive(){document.querySelector(".audio-box").style.opacity=0; AllData.innerHTML="";try{const response=await fetch(`${apiUrl}/live-tv`);
 
 const data=await response.json();const livetv=data.livetv;livetv.forEach(tv=>{AllData.innerHTML+=`
                 <div class="col-lg-6 mt-2 mb-2">
